@@ -1,5 +1,5 @@
 diff --git a/src/OpenCvSharpExtern/CMakeLists.txt b/src/OpenCvSharpExtern/CMakeLists.txt
-index 4371d2f6..79f89bf1 100644
+index 4371d2f6..e8fa2b0f 100644
 --- a/src/OpenCvSharpExtern/CMakeLists.txt
 +++ b/src/OpenCvSharpExtern/CMakeLists.txt
 @@ -1,4 +1,4 @@
@@ -40,7 +40,7 @@ index 4371d2f6..79f89bf1 100644
 +	  if(Iconv_FOUND)
 +		  target_link_libraries(OpenCvSharpExtern Iconv::Iconv)
 +	  else()
-+		  target_compile_definitions(OpenCVSharpExtern PRIVATE "NO_ICONV=1")
++		  target_compile_definitions(OpenCvSharpExtern PRIVATE "NO_ICONV=1")
 +	  endif()
 +	endif()
 +
