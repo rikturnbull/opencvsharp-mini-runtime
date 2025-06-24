@@ -1,96 +1,27 @@
 diff --git a/src/OpenCvSharpExtern/CMakeLists.txt b/src/OpenCvSharpExtern/CMakeLists.txt
-index 4371d2f6..13eedf05 100644
+index 4371d2f6..adfefbb2 100644
 --- a/src/OpenCvSharpExtern/CMakeLists.txt
 +++ b/src/OpenCvSharpExtern/CMakeLists.txt
-@@ -1,50 +1,50 @@
+@@ -1,4 +1,4 @@
 -cmake_minimum_required(VERSION 3.0)
 +cmake_minimum_required(VERSION 3.10)
  
  include_directories(${OpenCV_INCLUDE_DIR})
  IF(!EMSCRIPTEN)
--	link_directories(${OpenCV_LIBRARY_DIR} ${OpenCV_LIBRARIES})
-+    link_directories(${OpenCV_LIBRARY_DIR} ${OpenCV_LIBRARIES})
- ENDIF()
- IF(APPLE)
-     # Fix linking on 10.14+. See https://stackoverflow.com/questions/54068035
+@@ -9,7 +9,7 @@ IF(APPLE)
      link_directories(/usr/local/lib)
  ENDIF()
  
 -file(GLOB OPENCVSHARP_FILES *.cpp)
-+file(GLOB OPENCVSHARP_FILES core*.cpp imgp*.cpp imgc*.cpp std*.cpp)
++file(GLOB OPENCVSHARP_FILES core*.cpp imgp*.cpp imgc*.cpp std*.cpp tracking*.cpp)
  
  find_package(OpenCV REQUIRED)
  
--# iconv support isn't automatic on some systems
--if(CMAKE_VERSION VERSION_GREATER "3.11")
--  find_package(Iconv QUIET)
--  if(Iconv_FOUND)
--    ocv_target_link_libraries(${the_module} Iconv::Iconv)
--  else()
--    ocv_target_compile_definitions(${the_module} PRIVATE "NO_ICONV=1")
--  endif()
--endif()
--
- if(OpenCV_FOUND)
--	include_directories(${OpenCV_INCLUDE_DIRS})
--	#set(LIBS ${LIBS} ${OpenCV_LIBRARIES})
--
--	if(CMAKE_GENERATOR MATCHES "Visual Studio")
--		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
--		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
--		
--		set(CMAKE_CXX_STANDARD_LIBRARIES "${CMAKE_CXX_STANDARD_LIBRARIES} kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib")
--	endif()
--
--	if(EMSCRIPTEN)
--		# TODO: replace path
--		add_library(OpenCvSharpExtern STATIC ${OPENCVSHARP_FILES} ${WASM_LIB})
--	else()
--		add_library(OpenCvSharpExtern SHARED ${OPENCVSHARP_FILES})
--		target_link_libraries(OpenCvSharpExtern ${OpenCV_LIBRARIES})
--	endif()
--
--	install(TARGETS OpenCvSharpExtern
-+    include_directories(${OpenCV_INCLUDE_DIRS})
-+    #set(LIBS ${LIBS} ${OpenCV_LIBRARIES})
-+
-+    if(CMAKE_GENERATOR MATCHES "Visual Studio")
-+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
-+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
-+        
-+        set(CMAKE_CXX_STANDARD_LIBRARIES "${CMAKE_CXX_STANDARD_LIBRARIES} kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib")
-+    endif()
-+
-+    if(EMSCRIPTEN)
-+        # TODO: replace path
-+        add_library(OpenCvSharpExtern STATIC ${OPENCVSHARP_FILES} ${WASM_LIB})
-+    else()
-+        add_library(OpenCvSharpExtern SHARED ${OPENCVSHARP_FILES})
-+        target_link_libraries(OpenCvSharpExtern ${OpenCV_LIBRARIES})
-+    endif()
-+
-+    # iconv support isn't automatic on some systems
-+    if(CMAKE_VERSION VERSION_GREATER "3.11")
-+      find_package(Iconv QUIET)
-+      if(Iconv_FOUND)
-+        target_link_libraries(OpenCvSharpExtern Iconv::Iconv)
-+      else()
-+        target_compile_definitions(OpenCvSharpExtern PRIVATE "NO_ICONV=1")
-+      endif()
-+    endif()
-+
-+    install(TARGETS OpenCvSharpExtern
-         RUNTIME DESTINATION bin
-         LIBRARY DESTINATION lib
-         ARCHIVE DESTINATION lib/static
--	)
-+    )
- endif(OpenCV_FOUND)
 diff --git a/src/OpenCvSharpExtern/include_opencv.h b/src/OpenCvSharpExtern/include_opencv.h
-index d65eb67e..e0f3e560 100644
+index d65eb67e..4f71c43e 100644
 --- a/src/OpenCvSharpExtern/include_opencv.h
 +++ b/src/OpenCvSharpExtern/include_opencv.h
-@@ -39,35 +39,7 @@
+@@ -39,35 +39,9 @@
  #include <opencv2/highgui/highgui_winrt.hpp>
  #endif
  #include <opencv2/core/utils/logger.hpp>
@@ -112,7 +43,8 @@ index d65eb67e..e0f3e560 100644
 -#include <opencv2/line_descriptor.hpp>
 -#include <opencv2/optflow.hpp>
 -#include <opencv2/quality.hpp>
--#include <opencv2/tracking.hpp>
++#include <opencv2/imgproc/imgproc_c.h>
+ #include <opencv2/tracking.hpp>
 -#include <opencv2/xfeatures2d.hpp>
 -#include <opencv2/ximgproc.hpp>
 -#include <opencv2/xphoto.hpp>
