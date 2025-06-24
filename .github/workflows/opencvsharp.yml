@@ -66,6 +66,9 @@ jobs:
         cd opencvsharp
         git apply --ignore-whitespace ../eng/opencvsharp.patch
 
+        cp ../extra/utils.h src/OpenCvSharpExtern/utils.h
+        cp ../extra/utils.cpp src/OpenCvSharpExtern/utils.cpp
+
     - name: Configure OpenCvSharp
       run: |
         cd opencvsharp && mkdir build && cd build
