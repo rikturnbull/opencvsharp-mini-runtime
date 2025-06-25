@@ -52,9 +52,9 @@ jobs:
 
     - name: Install NDK
       run: |
-        if ! [[ "${{ matrix.os }}" =~ ^win ]]; then
+        if [[ "${{ matrix.os }}" =~ ^linux ]]; then
           $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "ndk;23.1.7779620"
-          
+
     - name: Check SDK
       run: |
         find /usr/local/lib/android
