@@ -59,7 +59,7 @@ jobs:
     - name: Check SDK
       run: |
         if ! [[ "${{ matrix.os }}" =~ ^win ]]; then
-          find /usr/local/lib/android
+          find /usr/local/lib/android -name android.toolchain.cmake
         fi
 
     - name: Download OpenCV Artifacts
@@ -105,6 +105,8 @@ jobs:
         EXTRA_FLAGS=""
         if [[ "${{ matrix.os }}" == "win" && "${{ matrix.arch }}" == "x86" ]]; then
           EXTRA_FLAGS+=" -A Win32"
+          #else
+          #EXTRA_FLAGS="-DCMAKE_TOOLCHAIN_FILE=/android-ndk-r25c/build/cmake/android.toolchain.cmake -DANDROID_ABI=x86_64 -DANDROID_PLATFORM=32 -DANDROID_STL=c++_static"
         fi
 
         cmake \
