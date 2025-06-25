@@ -23,8 +23,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - { os: android,        arch: x64,   runs-on: ubuntu-22.04 }
-          #- { os: linux,        arch: x64,   runs-on: ubuntu-22.04 }
+          #- { os: android,        arch: x64,   runs-on: ubuntu-22.04 }
+          - { os: linux,        arch: x64,   runs-on: ubuntu-22.04 }
           #- { os: ubuntu.24.04, arch: x64,   runs-on: ubuntu-24.04 }
           #- { os: linux,        arch: arm64, runs-on: ubuntu-22.04-arm }
           #- { os: ubuntu.24.04, arch: arm64, runs-on: ubuntu-24.04-arm }
@@ -52,6 +52,10 @@ jobs:
 
     - name: Install NDK
       run: sdkmanager "ndk;23.1.7779620"
+
+    - name: Check SDK
+      run: |
+        find /usr/local/lib/android
 
     - name: Download OpenCV Artifacts
       env:  
