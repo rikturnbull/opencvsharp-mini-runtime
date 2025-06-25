@@ -51,7 +51,7 @@ jobs:
       uses: android-actions/setup-android@v3
 
     - name: Install NDK
-      run: sdkmanager "ndk;23.1.7779620"
+      run: $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "ndk;23.1.7779620"
 
     - name: Check SDK
       run: |
