@@ -12,7 +12,7 @@ env:
     -D CMAKE_BUILD_TYPE=RELEASE
     -D OPENCV_EXTRA_MODULES_PATH="${{ github.workspace }}/opencv_contrib/modules"
     -D CMAKE_INSTALL_PREFIX="${{ github.workspace }}/opencv/build/install"
-    -D BUILD_LIST=core,imgproc,imgcodecs,tracking
+    -D BUILD_LIST=core,imgproc,imgcodecs,tracking,video
     -D BUILD_PNG=ON
     -D BUILD_TIFF=ON
     -D ENABLE_CXX11=ON
