@@ -52,12 +52,15 @@ jobs:
 
     - name: Install NDK
       run: |
-        if [[ "${{ matrix.os }}" =~ ^linux ]]; then
+        if ! [[ "${{ matrix.os }}" =~ ^win ]]; then
           $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "ndk;23.1.7779620"
+        fi
 
     - name: Check SDK
       run: |
-        find /usr/local/lib/android
+        if ! [[ "${{ matrix.os }}" =~ ^win ]]; then
+          find /usr/local/lib/android
+        fi
 
     - name: Download OpenCV Artifacts
       env:  
