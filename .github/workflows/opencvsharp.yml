@@ -53,10 +53,16 @@ jobs:
         packages: 'platform-tools'
 
     - name: List SDK Tools
-      run: sdkmanager --list
+      run: |
+        if ! [[ "${{ matrix.os }}" =~ ^win ]]; then
+          sdkmanager --list
+        fi
 
     - name: Install SDK Tools
-      run: sdkmanager "cmdline-tools;latest"
+      run: |
+        if ! [[ "${{ matrix.os }}" =~ ^win ]]; then
+          sdkmanager "cmdline-tools;latest"
+        fi
 
     - name: Install NDK
       run: |
