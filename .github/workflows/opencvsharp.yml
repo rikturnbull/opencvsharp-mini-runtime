@@ -56,7 +56,7 @@ jobs:
       run: sdkmanager --list
 
     - name: Install SDK Tools
-      run: sdkmanager cmdline-tools
+      run: sdkmanager "cmdline-tools;latest"
 
     - name: Install NDK
       run: |
