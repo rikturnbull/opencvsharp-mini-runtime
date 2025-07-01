@@ -71,10 +71,10 @@ jobs:
         fi
 
     - name: Check SDK
-        run: |
-          if ! [[ "${{ matrix.os }}" =~ ^win ]]; then
-            find $ANDROID_SDK_ROOT -name android.toolchain.cmake
-          fi
+      run: |
+        if ! [[ "${{ matrix.os }}" =~ ^win ]]; then
+          find $ANDROID_SDK_ROOT -name android.toolchain.cmake
+        fi
 
     - name: Download OpenCV Artifacts
       env:  
