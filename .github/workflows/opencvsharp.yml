@@ -52,11 +52,11 @@ jobs:
       with:
         packages: 'platform-tools'
 
+    - name: List SDK Tools
+      run: sdkmanager --list
+
     - name: Install SDK Tools
-      run: |
-        if ! [[ "${{ matrix.os }}" =~ ^win ]]; then
-          $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --verbose tools
-        fi
+      run: sdkmanager tools
 
     - name: Install NDK
       run: |
