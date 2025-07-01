@@ -121,9 +121,10 @@ jobs:
           EXTRA_FLAGS+=" -A Win32"
         fi
         if [[ "${{ matrix.os }}" == "linux" ]]; then
-          EXTRA_FLAGS="-DCMAKE_TOOLCHAIN_FILE=$ANDROID_SDK_ROOT/ndk/26.3.11579264/build/cmake/android.toolchain.cmake -DANDROID_ABI=x86_64 -DANDROID_PLATFORM=32 -DANDROID_STL=c++_static"
+        #EXTRA_FLAGS="-DCMAKE_TOOLCHAIN_FILE=$ANDROID_SDK_ROOT/ndk/26.3.11579264/build/cmake/android.toolchain.cmake -DANDROID_ABI=x86_64 -DANDROID_PLATFORM=32 -DANDROID_STL=c++_static"
+          EXTRA_FLAGS="-DCMAKE_TOOLCHAIN_FILE=$ANDROID_SDK_ROOT/ndk/23.1.7779620/build/cmake/android.toolchain.cmake -DANDROID_ABI=x86_64 -DANDROID_PLATFORM=32 -DANDROID_STL=c++_static"
         fi
-
+        #/home/runner/.android/sdk/ndk/23.1.7779620/build/cmake/android.toolchain.cmake
         cmake \
           -D CMAKE_INSTALL_PREFIX="${{ github.workspace }}/opencvsharp/build" \
           -D OpenCV_DIR="$OpenCV_DIR" \
