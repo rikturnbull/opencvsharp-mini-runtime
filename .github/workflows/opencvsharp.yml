@@ -70,11 +70,11 @@ jobs:
           $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "ndk;23.1.7779620"
         fi
 
-        #- name: Check SDK
-        #run: |
-        #if ! [[ "${{ matrix.os }}" =~ ^win ]]; then
-        #  find /usr/local/lib/android -name android.toolchain.cmake
-        #fi
+    - name: Check SDK
+        run: |
+        if ! [[ "${{ matrix.os }}" =~ ^win ]]; then
+          find $ANDROID_SDK_ROOT -name android.toolchain.cmake
+        fi
 
     - name: Download OpenCV Artifacts
       env:  
